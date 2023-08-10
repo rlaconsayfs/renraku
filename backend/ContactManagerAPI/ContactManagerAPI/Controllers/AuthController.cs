@@ -92,16 +92,16 @@ namespace ContactManagerAPI.Controllers
         /// 
         /// </remarks>
         /// <response code="200">Successfully logged in user</response>
+        /// <response code="400">Invalid username or password</response>
         /// <response code="404">Username does not exist</response>
-        /// <response code="401">Invalid username or password</response>
         /// <response code="500">Internal server error</response>
         [HttpPost("login")]
         [AllowAnonymous]
         [Consumes("application/json")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login(UserLoginDto userLogin)
         {
@@ -110,7 +110,7 @@ namespace ContactManagerAPI.Controllers
                 if(!await _userService.DoesUsernameExist(userLogin.Username)) return NotFound("Username does not exist");
 
                 var login = await _authService.Login(userLogin);
-                if(string.IsNullOrEmpty(login)) return Unauthorized("Invalid username or password");
+                if(string.IsNullOrEmpty(login)) return BadRequest("Invalid username or password");
 
                 return Ok(login);
             }
