@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { login } from '../../apis/Auth';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -34,7 +35,8 @@ const Login = () => {
     setUsernameError(username.length === 0);
     setPasswordError(password.length === 0);
     if (username.length > 0 && password.length > 0) {
-      console.log('Login successful!');
+      console.log('Loggin in...');
+      login(username, password);
     }
   };
 
