@@ -66,7 +66,6 @@ const Dashboard = () => {
           </Paper>
         </Box>
       </Box>
-      <Box></Box>
     </Paper>
   );
 };

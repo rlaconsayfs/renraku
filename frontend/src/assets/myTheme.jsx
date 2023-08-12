@@ -3,24 +3,21 @@ import { createTheme } from '@mui/material';
 const myTheme = createTheme({
   palette: {
     primary: {
-      main: '#cac0b9',
+      main: '#cac0b9'
     },
     secondary: {
-      main: '#d8d0cb',
+      main: '#d8d0cb'
     },
-    accent:{
+    accent: {
       main: '#7a685c',
-      contrastText: '#ffffff',
+      contrastText: '#ffffff'
     },
     background: {
-      main: '#e9e5e2',
+      main: '#e9e5e2'
     }
   },
   typography: {
-    fontFamily: [
-      'Quicksand',
-      'sans-serif',
-    ].join(','),
+    fontFamily: ['Quicksand', 'sans-serif'].join(',')
   }
 });
 

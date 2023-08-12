@@ -12,6 +12,7 @@ import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import FormHelperText from '@mui/material/FormHelperText';
+import LinearProgress from '@mui/material/LinearProgress';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -19,7 +20,7 @@ const Register = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
-  const [emailAddressError, setEmailAddressError] = useState(false);  
+  const [emailAddressError, setEmailAddressError] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -192,14 +193,29 @@ const Register = () => {
             fullWidth
             variant='contained'
             size='large'
-            disabled={usernameError || emailAddressError || passwordError || passwordConfirmError || !username || !emailAddress || !password || !passwordConfirm || !firstName || !lastName}
+            disabled={
+              usernameError ||
+              emailAddressError ||
+              passwordError ||
+              passwordConfirmError ||
+              !username ||
+              !emailAddress ||
+              !password ||
+              !passwordConfirm ||
+              !firstName ||
+              !lastName
+            }
             sx={{ mt: 3 }}>
             Register
           </Button>
           <Divider sx={{ color: 'accent.main', my: 3 }}>or</Divider>
           <Typography>
             Already have an account?{' '}
-            <Link component={RouterLink} to='/login' color='accent.main' underline='hover'>
+            <Link
+              component={RouterLink}
+              to='/login'
+              color='accent.main'
+              underline='hover'>
               Login
             </Link>
           </Typography>

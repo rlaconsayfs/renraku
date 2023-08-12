@@ -1,10 +1,14 @@
-import React from 'react'
-import Link from '@mui/material/Link'
-import Typography from '@mui/material/Typography'
+import React from 'react';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
 const Copyright = (props) => {
   return (
-    <Typography variant='body2' color='text.secondary' align='center' {...props}>
+    <Typography
+      variant='body2'
+      color='text.secondary'
+      align='center'
+      {...props}>
       {'Project Renraku © '}
       <Link color='inherit' href='#'>
         Ethan
@@ -12,7 +16,7 @@ const Copyright = (props) => {
       {new Date().getFullYear()}
       {'.'}
     </Typography>
-  )
-}
+  );
+};
 
-export default Copyright
+export default Copyright;
