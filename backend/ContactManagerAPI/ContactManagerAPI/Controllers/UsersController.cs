@@ -45,6 +45,7 @@ namespace ContactManagerAPI.Controllers
         /// <reponse code="204">No users found</reponse>
         /// <reponse code="500">Internal server error</reponse>
         [HttpGet]
+        [AllowAnonymous]
         [Produces("application/json")]
         [ProducesResponseType(typeof(IEnumerable<UserDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
