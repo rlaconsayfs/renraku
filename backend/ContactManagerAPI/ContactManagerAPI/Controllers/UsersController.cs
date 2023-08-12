@@ -112,6 +112,26 @@ namespace ContactManagerAPI.Controllers
             }
         }
 
+        [HttpGet("checkUsername")]
+        [AllowAnonymous]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<bool>> CheckUsername(string username)
+        {
+            try
+            {
+                var result = await _userService.DoesUsernameExist(username);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error checking username.");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something went wrong");
+            }
+        }
+
         /// <summary>
         /// Updates a user
         /// </summary>
