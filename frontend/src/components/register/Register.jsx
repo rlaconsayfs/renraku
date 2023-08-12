@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
+import { checkUsernameExists, register } from '../../apis/Auth';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Copyright from '../copyright/Copyright';
 import Divider from '@mui/material/Divider';
+import FormHelperText from '@mui/material/FormHelperText';
 import Grid from '@mui/material/Grid';
+import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
+import MuiAlert from '@mui/material/Alert';
 import SettingsAccessibilityIcon from '@mui/icons-material/SettingsAccessibility';
+import Snackbar from '@mui/material/Snackbar';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import FormHelperText from '@mui/material/FormHelperText';
-import LinearProgress from '@mui/material/LinearProgress';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState(false);
+  const [usernameExists, setUsernameExists] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [emailAddress, setEmailAddress] = useState('');
@@ -25,11 +29,22 @@ const Register = () => {
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
+  const [registerDisabled, setRegisterDisabled] = useState(false);
+  const [loaderVisibility, setLoaderVisibility] = useState(false);
+  const [snackBarOpen, setSnackBarOpen] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    setUsernameExists(false);
     const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+|\s+|null/gi;
     setUsernameError(regex.test(event.target.value));
+  };
+
+  const handleUsernameCheck = async (event) => {
+    if (!(event.target.value.length === 0)) {
+      const usernameExists = await checkUsernameExists(event.target.value);
+      setUsernameExists(usernameExists);
+    }
   };
 
   const handleFirstNameChange = (event) => {
@@ -54,6 +69,67 @@ const Register = () => {
   const handlePasswordConfirmChange = (event) => {
     setPasswordConfirm(event.target.value);
     setPasswordConfirmError(event.target.value !== password);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (
+      !usernameError &&
+      !usernameExists &&
+      firstName &&
+      lastName &&
+      !emailAddressError &&
+      !passwordError &&
+      !passwordConfirmError
+    ) {
+      try {
+        setRegisterDisabled(true);
+        setLoaderVisibility(true);
+        const response = await register({
+          username,
+          firstName,
+          lastName,
+          emailAddress,
+          password
+        });
+        console.log(response);
+        if (response.status === 201) {
+          console.log('Registration successful');
+          setSnackBarOpen(true);
+          clearFields();
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setRegisterDisabled(false);
+        setLoaderVisibility(false);
+      }
+    }
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+  });
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setSnackBarOpen(false);
+  };
+
+  const clearFields = () => {
+    setUsername('');
+    setUsernameError(false);
+    setUsernameExists(false);
+    setFirstName('');
+    setLastName('');
+    setEmailAddress('');
+    setEmailAddressError(false);
+    setPassword('');
+    setPasswordError(false);
+    setPasswordConfirm('');
+    setPasswordConfirmError(false);
   };
 
   const turnOffAutocomplete = {
@@ -87,6 +163,8 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 onChange={handleUsernameChange}
+                onBlur={handleUsernameCheck}
+                value={username}
                 color='accent'
                 required
                 fullWidth
@@ -94,7 +172,7 @@ const Register = () => {
                 name='username-register'
                 label='Username'
                 autoFocus
-                error={usernameError}
+                error={usernameError || usernameExists}
                 InputProps={{ ...turnOffAutocomplete }}
               />
               {usernameError && (
@@ -103,10 +181,16 @@ const Register = () => {
                     'Username must not contain special characters'}
                 </FormHelperText>
               )}
+              {usernameExists && (
+                <FormHelperText error>
+                  {usernameExists && 'Username already exists'}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 onChange={handleFirstNameChange}
+                value={firstName}
                 color='accent'
                 required
                 fullWidth
@@ -119,6 +203,7 @@ const Register = () => {
             <Grid item xs={12} sm={6}>
               <TextField
                 onChange={handleLastNameChange}
+                value={lastName}
                 color='accent'
                 required
                 fullWidth
@@ -131,12 +216,14 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 onChange={handleEmailAddressChange}
+                value={emailAddress}
                 color='accent'
                 required
                 fullWidth
                 id='email-register'
                 name='email-register'
                 label='Email Address'
+                type='email'
                 error={emailAddressError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
@@ -149,6 +236,7 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 onChange={handlePasswordChange}
+                value={password}
                 color='accent'
                 required
                 fullWidth
@@ -169,6 +257,7 @@ const Register = () => {
             <Grid item xs={12}>
               <TextField
                 onChange={handlePasswordConfirmChange}
+                value={passwordConfirm}
                 color='accent'
                 required
                 fullWidth
@@ -188,6 +277,7 @@ const Register = () => {
             </Grid>
           </Grid>
           <Button
+            onClick={handleSubmit}
             color='accent'
             type='submit'
             fullWidth
@@ -195,6 +285,7 @@ const Register = () => {
             size='large'
             disabled={
               usernameError ||
+              usernameExists ||
               emailAddressError ||
               passwordError ||
               passwordConfirmError ||
@@ -203,11 +294,15 @@ const Register = () => {
               !password ||
               !passwordConfirm ||
               !firstName ||
-              !lastName
+              !lastName ||
+              registerDisabled
             }
             sx={{ mt: 3 }}>
             Register
           </Button>
+          <LinearProgress
+            sx={{ mt: 1, visibility: loaderVisibility ? 'visible' : 'hidden' }}
+          />
           <Divider sx={{ color: 'accent.main', my: 3 }}>or</Divider>
           <Typography>
             Already have an account?{' '}
@@ -222,6 +317,14 @@ const Register = () => {
         </Box>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Snackbar
+        open={snackBarOpen}
+        autoHideDuration={6000}
+        onClose={handleClose}>
+        <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
+          Registered Successfully!
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

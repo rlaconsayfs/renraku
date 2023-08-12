@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import { login } from '../../apis/Auth';
@@ -6,15 +6,15 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
+import Copyright from '../copyright/Copyright';
 import Divider from '@mui/material/Divider';
 import InputAdornment from '@mui/material/InputAdornment';
+import LinearProgress from '@mui/material/LinearProgress';
 import Link from '@mui/material/Link';
 import LockIcon from '@mui/icons-material/Lock';
 import PersonIcon from '@mui/icons-material/Person';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Copyright from '../copyright/Copyright';
-import LinearProgress from '@mui/material/LinearProgress';
 
 const Login = () => {
   const [username, setUsername] = useState('');
