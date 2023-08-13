@@ -2,11 +2,10 @@ import React, { createContext, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './components/login/Login';
 import Register from './components/register/Register';
-
-const Layout = React.lazy(() => import('./components/Layout/Layout'));
-const ContactsDashboard = React.lazy(() => import('./components/dashboard/contacts/ContactsDashboard'));
-const FavoritesDashboard = React.lazy(() => import('./components/dashboard/favorites/FavoritesDashboard'));
-const ContactsCreate = React.lazy(() => import('./components/dashboard/create/ContactsCreate'));
+import Layout from './components/Layout/Layout';
+import ContactsDashboard from './components/dashboard/contacts/ContactsDashboard';
+import FavoritesDashboard from './components/dashboard/favorites/FavoritesDashboard';
+import ContactsCreate from './components/dashboard/create/ContactsCreate';
 
 export const UserContext = createContext();
 

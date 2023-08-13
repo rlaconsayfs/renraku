@@ -12,7 +12,6 @@ export const getUser = async (token) => {
     const response = await axios.get(`${USER_URL}currentUser`, config);
 
     if (response.status === 200) {
-      console.log(response);
       return response;
     } else {
       console.log('Received unexpected status code:', response.status);
