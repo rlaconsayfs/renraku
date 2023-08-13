@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../App';
 import { Outlet } from 'react-router';
+import { useNavigate } from 'react-router-dom';
+import { getUser } from '../../apis/User';
 import Box from '@mui/material/Box';
 import CustomAppBar from './CustomAppBar';
 import CustomDrawer from './CustomDrawer';
@@ -9,7 +12,31 @@ const drawerWidth = 240;
 
 const Layout = (props) => {
   const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [user, setUser] = useContext(UserContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token === null) {
+      navigate('/login');
+    } else {
+      const fetchUser = async () => {
+        try {
+          if (user === null) {
+            const response = await getUser(token); // Pass the token here
+            if (response.status === 200) {
+              setUser(response.data);
+            }
+          }
+        } catch (error) {
+          console.log(error);
+          // navigate('/login');
+        }
+      };
+      fetchUser();
+    }
+  }, [navigate]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -18,11 +45,12 @@ const Layout = (props) => {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  return (
+  return user ? (
     <Box sx={{ display: 'flex' }}>
       <CustomAppBar
         handleDrawerToggle={handleDrawerToggle}
         drawerWidth={drawerWidth}
+        user={user}
       />
 
       <CustomDrawer
@@ -43,7 +71,7 @@ const Layout = (props) => {
         <Outlet />
       </Box>
     </Box>
-  );
+  ) : null;
 };
 
 export default Layout;

@@ -37,25 +37,23 @@ const Login = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();    
+    event.preventDefault();
     setUsernameError(username.length === 0);
     setPasswordError(password.length === 0);
     setErrorMessage('');
     if (username.length > 0 && password.length > 0) {
-      try{
+      try {
         setLoginDisabled(true);
         setLoaderVisibility(true);
         const response = await login(username, password);
         console.log(response);
-        if(response.status === 200){
+        if (response.status === 200) {
           sessionStorage.setItem('token', response.data);
-          //navigate('/');
+          navigate('/');
         }
-      }
-      catch(error){
-        setErrorMessage(error.message);        
-      }
-      finally{
+      } catch (error) {
+        setErrorMessage(error.message);
+      } finally {
         setLoginDisabled(false);
         setLoaderVisibility(false);
       }
@@ -137,7 +135,9 @@ const Login = () => {
             sx={{ mt: 3 }}>
             Login
           </Button>
-          <LinearProgress sx={{mt: 1, visibility: loaderVisibility ? 'visible' : 'hidden'}} />
+          <LinearProgress
+            sx={{ mt: 1, visibility: loaderVisibility ? 'visible' : 'hidden' }}
+          />
           <Divider sx={{ color: 'accent.main', my: 3 }}>or</Divider>
           <Typography>
             Don't have an account?{' '}
@@ -150,7 +150,7 @@ const Login = () => {
             </Link>
           </Typography>
         </Box>
-      </Box>      
+      </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );

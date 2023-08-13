@@ -18,6 +18,7 @@ export const login = async (username, password) => {
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
+      if(error.code === 'ERR_NETWORK') { throw new Error('Network error'); }
       const response = error.response;
       switch (response.status) {
         case 400:

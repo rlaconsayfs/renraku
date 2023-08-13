@@ -24,7 +24,7 @@ const CustomAppBar = (props) => {
           <MenuIcon />
         </IconButton>
         <Typography variant='h6' noWrap component='div'>
-          Welcome back
+          Welcome back {props.user.firstName}!
         </Typography>
       </Toolbar>
     </AppBar>
