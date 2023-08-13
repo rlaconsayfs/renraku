@@ -112,6 +112,32 @@ namespace ContactManagerAPI.Controllers
             }
         }
 
+        [HttpGet("currentUser")]
+        [Authorize]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(UserDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public ActionResult<UserDto> GetCurrentUser()
+        {
+            try
+            {
+                var currentUser = _authService.GetCurrentUser(HttpContext.User.Identity as ClaimsIdentity);
+                if (currentUser == null) return Forbid();
+
+                return Ok(currentUser);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error getting current user.");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Something went wrong");
+            }
+        }
+
+
         [HttpGet("checkUsername")]
         [AllowAnonymous]
         [Produces("application/json")]
