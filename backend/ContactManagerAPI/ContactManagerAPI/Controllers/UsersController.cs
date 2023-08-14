@@ -112,6 +112,10 @@ namespace ContactManagerAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Gets the current user
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("currentUser")]
         [Authorize]
         [Produces("application/json")]
