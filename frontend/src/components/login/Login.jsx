@@ -46,7 +46,6 @@ const Login = () => {
         setLoginDisabled(true);
         setLoaderVisibility(true);
         const response = await login(username, password);
-        console.log(response);
         if (response.status === 200) {
           sessionStorage.setItem('token', response.data);
           navigate('/');

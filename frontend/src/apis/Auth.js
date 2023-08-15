@@ -10,7 +10,6 @@ export const login = async (username, password) => {
     });
 
     if (response.status === 200) {
-      console.log(response);
       return response;
     } else {
       console.log('Received unexpected status code:', response.status);
@@ -18,7 +17,9 @@ export const login = async (username, password) => {
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if(error.code === 'ERR_NETWORK') { throw new Error('Network error'); }
+      if (error.code === 'ERR_NETWORK') {
+        throw new Error('Network error');
+      }
       const response = error.response;
       switch (response.status) {
         case 400:

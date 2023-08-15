@@ -1,14 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../../../App';
+import { getContacts } from '../../../apis/Contacts';
+import ContactsList from './ContactsList';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 
 const Dashboard = () => {
+  const [user, setUser] = useContext(UserContext);
+  const [contacts, setContacts] = useState([]);
+
+  const groupedContacts = contacts.reduce((acc, user) => {
+    const firstLetter = user.firstName.charAt(0).toUpperCase();
+    if (!acc[firstLetter]) {
+      acc[firstLetter] = [];
+    }
+    acc[firstLetter].push(user);
+    return acc;
+  }, {});
+
+  const fetchContacts = async () => {
+    const token = sessionStorage.getItem('token');
+    try {
+      const response = await getContacts(token);
+      if (response.status === 200) {
+        console.log(response.data);
+        setContacts(response.data);
+      } else if (response.status === 204) {
+        console.log('No contacts found');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
+
   return (
     <Paper
       variant='outlined'
@@ -28,43 +58,8 @@ const Dashboard = () => {
             type='search'
             fullWidth></TextField>
         </Box>
-        <Box>
-          <Paper
-            variant='outlined'
-            sx={{
-              bgcolor: 'secondary.main',
-              borderColor: 'accent.main',
-              overflow: 'hidden'
-            }}>
-            <List
-              sx={{
-                width: '100%',
-                maxWidth: 1,
-                bgcolor: 'secondary.main',
-                position: 'relative',
-                overflow: 'auto',
-                maxHeight: { xs: '60vh', sm: 700 },
-                '& ul': { padding: 0 }
-              }}
-              subheader={<li />}>
-              {[0, 1, 2, 3, 4].map((sectionId) => (
-                <li key={`section-${sectionId}`}>
-                  <ul>
-                    <ListSubheader
-                      sx={{
-                        bgcolor: 'primary.main'
-                      }}>{`I'm sticky ${sectionId}`}</ListSubheader>
-                    {[0, 1, 2].map((item) => (
-                      <ListItem key={`item-${sectionId}-${item}`}>
-                        <ListItemText primary={`Item ${item}`} />
-                      </ListItem>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </List>
-          </Paper>
-        </Box>
+
+        <ContactsList contacts={contacts} groupedContacts={groupedContacts} />
       </Box>
     </Paper>
   );
