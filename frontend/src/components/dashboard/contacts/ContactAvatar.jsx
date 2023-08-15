@@ -4,13 +4,13 @@ import { stringToColor } from '../../../assets/avatarColorizer';
 import { generateAvatarUrl } from '../../../assets/getDicebearAvatar';
 import Avatar from '@mui/material/Avatar';
 
-const ContactAvatar = ({ user }) => {
+const ContactAvatar = ({ contact }) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
 
   useEffect(() => {
     const fetchAvatar = async () => {
       try {
-        const url = await generateAvatarUrl(user);
+        const url = await generateAvatarUrl(contact);
         setAvatarUrl(url);
       } catch (error) {
         setAvatarUrl(null);
@@ -18,19 +18,19 @@ const ContactAvatar = ({ user }) => {
     };
 
     fetchAvatar();
-  }, [user]);
+  }, [contact]);
 
   return avatarUrl ? (
     <Avatar
       sx={{
         mr: 2,
-        bgcolor: `${stringToColor(`${user.firstName} ${user.lastName}`)}`
+        bgcolor: `${stringToColor(`${contact.firstName} ${contact.lastName}`)}`
       }}
       src={avatarUrl}
-      alt={`${user.firstName} ${user.lastName}`}
+      alt={`${contact.firstName} ${contact.lastName}`}
     />
   ) : (
-    <Avatar {...stringAvatar(`${user.firstName} ${user.lastName}`)} />
+    <Avatar {...stringAvatar(`${contact.firstName} ${contact.lastName}`)} />
   );
 };
 

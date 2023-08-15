@@ -10,6 +10,7 @@ import TextField from '@mui/material/TextField';
 const Dashboard = () => {
   const [user, setUser] = useContext(UserContext);
   const [contacts, setContacts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const groupedContacts = contacts.reduce((acc, user) => {
     const firstLetter = user.firstName.charAt(0).toUpperCase();
@@ -19,6 +20,10 @@ const Dashboard = () => {
     acc[firstLetter].push(user);
     return acc;
   }, {});
+
+  useEffect(() => {
+    fetchContacts();
+  }, []);
 
   const fetchContacts = async () => {
     const token = sessionStorage.getItem('token');
@@ -35,9 +40,9 @@ const Dashboard = () => {
     }
   };
 
-  useEffect(() => {
-    fetchContacts();
-  }, []);
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   return (
     <Paper
@@ -52,14 +57,20 @@ const Dashboard = () => {
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
           <SearchIcon sx={{ mr: 1 }}></SearchIcon>
           <TextField
+            onChange={handleSearchChange}
             placeholder='Search contacts'
             color='accent'
             variant='standard'
             type='search'
-            fullWidth></TextField>
+            fullWidth
+          />
         </Box>
 
-        <ContactsList contacts={contacts} groupedContacts={groupedContacts} />
+        <ContactsList
+          contacts={contacts}
+          groupedContacts={groupedContacts}
+          searchTerm={searchTerm}
+        />
       </Box>
     </Paper>
   );
