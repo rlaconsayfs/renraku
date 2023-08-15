@@ -31,7 +31,8 @@ const Register = () => {
   const [passwordConfirmError, setPasswordConfirmError] = useState(false);
   const [registerDisabled, setRegisterDisabled] = useState(false);
   const [loaderVisibility, setLoaderVisibility] = useState(false);
-  const [snackBarOpen, setSnackBarOpen] = useState(false);
+  const [snackBarOpenSuccess, setSnackBarOpenSuccess] = useState(false);
+  const [snackBarOpenError, setSnackBarOpenError] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -95,11 +96,12 @@ const Register = () => {
         console.log(response);
         if (response.status === 201) {
           console.log('Registration successful');
-          setSnackBarOpen(true);
+          setSnackBarOpenSuccess(true);
           clearFields();
         }
       } catch (error) {
         console.log(error);
+        setSnackBarOpenError(true);
       } finally {
         setRegisterDisabled(false);
         setLoaderVisibility(false);
@@ -115,7 +117,8 @@ const Register = () => {
     if (reason === 'clickaway') {
       return;
     }
-    setSnackBarOpen(false);
+    setSnackBarOpenSuccess(false);
+    setSnackBarOpenError(false);
   };
 
   const clearFields = () => {
@@ -318,11 +321,19 @@ const Register = () => {
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
       <Snackbar
-        open={snackBarOpen}
+        open={snackBarOpenSuccess}
         autoHideDuration={6000}
         onClose={handleClose}>
         <Alert onClose={handleClose} severity='success' sx={{ width: '100%' }}>
           Registered Successfully!
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={snackBarOpenError}
+        autoHideDuration={6000}
+        onClose={handleClose}>
+        <Alert onClose={handleClose} severity='error' sx={{ width: '100%' }}>
+          There seems to be a problem. Please try again later.
         </Alert>
       </Snackbar>
     </Container>
