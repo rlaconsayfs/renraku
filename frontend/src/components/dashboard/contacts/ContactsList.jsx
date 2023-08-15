@@ -44,14 +44,12 @@ const ContactsList = (props) => {
             ? 'No matching contacts found'
             : 'You have no contacts yet'}
         </Typography>
-        {searchTerm && (
-          <Button
-            variant='outlined'
-            color='accent'
-            onClick={() => navigate('/create')}>
-            Create one?
-          </Button>
-        )}
+        <Button
+          variant='outlined'
+          color='accent'
+          onClick={() => navigate('/create')}>
+          Create one?
+        </Button>
       </Box>
     );
   } else {
@@ -105,7 +103,7 @@ const ContactsList = (props) => {
                       {contactsInGroup.map((contact) => (
                         <ListItem
                           key={`item-${letter}-${contact.id}`}
-                          onClick={() => alert(contact.id)}
+                          onClick={() => navigate(`/contacts/${contact.id}`)}
                           sx={{
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',
