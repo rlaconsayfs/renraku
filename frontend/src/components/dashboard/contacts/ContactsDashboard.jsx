@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../../../App';
+import React, { useEffect, useState } from 'react';
 import { getContacts } from '../../../apis/Contacts';
 import ContactsList from './ContactsList';
 import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import SearchIcon from '@mui/icons-material/Search';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
 
 const Dashboard = () => {
-  const [user, setUser] = useContext(UserContext);
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showStarIcon, setShowStarIcon] = useState(false);
 
   const groupedContacts = contacts.reduce((acc, user) => {
     const firstLetter = user.firstName.charAt(0).toUpperCase();
@@ -44,6 +46,10 @@ const Dashboard = () => {
     setSearchTerm(event.target.value);
   };
 
+  const toggleFavoriteIcon = () => {
+    setShowStarIcon((prevShowStarIcon) => !prevShowStarIcon);
+  };
+
   return (
     <Paper
       variant='outlined'
@@ -62,14 +68,19 @@ const Dashboard = () => {
             color='accent'
             variant='standard'
             type='search'
+            autoComplete='off'
             fullWidth
           />
+          <IconButton onClick={toggleFavoriteIcon} sx={{ mr: 2 }}>
+            {showStarIcon ? <StarIcon /> : <StarBorderOutlinedIcon />}
+          </IconButton>
         </Box>
 
         <ContactsList
           contacts={contacts}
           groupedContacts={groupedContacts}
           searchTerm={searchTerm}
+          showStarIcon={showStarIcon}
         />
       </Box>
     </Paper>

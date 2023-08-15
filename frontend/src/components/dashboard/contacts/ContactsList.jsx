@@ -1,17 +1,20 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import ContactAvatar from './ContactAvatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import Paper from '@mui/material/Paper';
+import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
+import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
-import ContactAvatar from './ContactAvatar';
 
 const ContactsList = (props) => {
-  const { contacts, groupedContacts, searchTerm } = props;
+  const { contacts, groupedContacts, searchTerm, showStarIcon } = props;
   const navigate = useNavigate();
 
   // Filter contacts based on the search term
@@ -23,7 +26,11 @@ const ContactsList = (props) => {
   // Determine whether to use filteredContacts or all contacts
   const displayedContacts = searchTerm ? filteredContacts : contacts;
 
-  if (displayedContacts.length === 0) {
+  const filteredAndFavoriteContacts = showStarIcon
+    ? displayedContacts.filter((contact) => contact.isFavorite)
+    : displayedContacts;
+
+  if (filteredAndFavoriteContacts.length === 0) {
     return (
       <Box
         sx={{
@@ -71,7 +78,7 @@ const ContactsList = (props) => {
             {Object.keys(groupedContacts)
               .sort() // Sort the keys alphabetically
               .map((letter) => {
-                const contactsInGroup = displayedContacts
+                const contactsInGroup = filteredAndFavoriteContacts
                   .filter((contact) =>
                     contact.fullName
                       .toLowerCase()
@@ -110,6 +117,23 @@ const ContactsList = (props) => {
                           <ListItemText
                             primary={`${contact.firstName} ${contact.lastName}`}
                           />
+                          {contact.isFavorite ? (
+                            <IconButton
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                alert(contact.isFavorite);
+                              }}>
+                              <StarIcon />
+                            </IconButton>
+                          ) : (
+                            <IconButton
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                alert(contact.isFavorite);
+                              }}>
+                              <StarBorderOutlinedIcon />
+                            </IconButton>
+                          )}
                         </ListItem>
                       ))}
                     </ul>
