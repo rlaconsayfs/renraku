@@ -4,8 +4,9 @@ import { stringToColor } from '../../../assets/avatarColorizer';
 import { generateAvatarUrl } from '../../../assets/getDicebearAvatar';
 import Avatar from '@mui/material/Avatar';
 
-const ContactAvatar = ({ contact }) => {
+const ContactAvatar = ({ contact, size }) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
+
 
   useEffect(() => {
     const fetchAvatar = async () => {
@@ -24,7 +25,8 @@ const ContactAvatar = ({ contact }) => {
     <Avatar
       sx={{
         mr: 2,
-        bgcolor: `${stringToColor(`${contact.firstName} ${contact.lastName}`)}`
+        bgcolor: `${stringToColor(`${contact.firstName} ${contact.lastName}`)}`,
+        ...(size && { width: size, height: size })
       }}
       src={avatarUrl}
       alt={`${contact.firstName} ${contact.lastName}`}

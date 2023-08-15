@@ -64,8 +64,9 @@ const Layout = (props) => {
         component='main'
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` }
+          p: {xs: 0, md: 3},
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          transition: 'padding 0.3s ease-in-out'
         }}>
         <Toolbar />
         <Outlet />

@@ -12,7 +12,7 @@ body{
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #7a685c #E9E5E2;
+  scrollbar-color: #7A685C #E9E5E2;
 }
 
 /* Chrome, Edge and Safari */
@@ -21,28 +21,27 @@ body{
   width: 6px;
 }
 *::-webkit-scrollbar-track {
-  border-radius: 10px;
+  border-radius: 5px;
   background-color: #E9E5E2;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #E0DCD9;
+  background-color: #DDDAD7;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #E0DCD9;
+  background-color: #E4E0DD;
 }
 
 *::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: #7a685c;
+  border-radius: 5px;
+  background-color: #7A685C;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #B2AAA3;
+  background-color: #7A685C;
 }
 
 *::-webkit-scrollbar-thumb:active {
-  background-color: #CAC0B9;
+  background-color: #7a685c;
 }
-
