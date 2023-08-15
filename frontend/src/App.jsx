@@ -6,6 +6,8 @@ import Layout from './components/Layout/Layout';
 import ContactsDashboard from './components/dashboard/contacts/ContactsDashboard';
 import FavoritesDashboard from './components/dashboard/favorites/FavoritesDashboard';
 import ContactsCreate from './components/dashboard/create/ContactsCreate';
+import ContactDetails from './components/dashboard/contacts/ContactDetails'
+import NotFound from './components/notfound/NotFound';
 
 export const UserContext = createContext();
 
@@ -23,7 +25,9 @@ const App = () => {
             <Route index element={<ContactsDashboard />} />
             <Route path='favorites' element={<FavoritesDashboard />} />
             <Route path='create' element={<ContactsCreate />} />
+            <Route path='contacts/:id' element={<ContactDetails />} />
           </Route>
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
