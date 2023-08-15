@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,10 +7,24 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Chip, Container, Divider, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import ContactAvatar from './ContactAvatar';
+import { getContact } from '../../../apis/Contacts';
 
 const ContactDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [selectedContact, setSelectedContact] = useState({});
+
+  useEffect(() => {
+    fetchContact();
+  }, []);
+
+  const fetchContact = async () => {
+    const token = sessionStorage.getItem('token');
+    const response = await getContact(token, id);
+    console.log(response);
+    setSelectedContact(response.data);
+    console.log(selectedContact);
+  };
 
   return (
     <Paper
@@ -50,15 +64,7 @@ const ContactDetails = () => {
               mb: { xs: 3, md: 5 }
             }}>
             <Box>
-              {/* <Avatar sx={{ width: 300, height: 300 }}>POZ</Avatar> */}
-              <ContactAvatar
-                contact={{
-                  firstName: 'Angel',
-                  lastName: 'Mariposa',
-                  gender: 'Female'
-                }}
-                size={320}
-              />
+              <ContactAvatar contact={selectedContact} size={320} />
             </Box>
             <Box
               sx={{
@@ -82,7 +88,7 @@ const ContactDetails = () => {
                   fontSize: { xs: '3rem', md: '4rem' },
                   lineHeight: '0.8'
                 }}>
-                Angel
+                {selectedContact.firstName}
               </Typography>
               <Typography
                 variant='subtitle1'
@@ -100,11 +106,11 @@ const ContactDetails = () => {
                   fontSize: { xs: '3rem', md: '4rem' },
                   lineHeight: '0.8'
                 }}>
-                Mariposa
+                {selectedContact.lastName}
               </Typography>
             </Box>
           </Box>
-          <Divider sx={{ mb: { xs: 3, md: 4 } }} />
+          <Divider sx={{ mb: { xs: 3, md: 5 } }} />
           <Box
             sx={{
               display: 'flex',
@@ -112,7 +118,7 @@ const ContactDetails = () => {
               alignItems: 'center',
               justifyContent: 'flex-start',
               gap: { xs: 2, md: 15 },
-              mb: { xs: 3, md: 5 }
+              mb: { xs: 3, md: 4 }
             }}>
             <Box
               sx={{
@@ -137,7 +143,7 @@ const ContactDetails = () => {
                   fontSize: '2rem',
                   lineHeight: '0.8'
                 }}>
-                Female
+                {selectedContact.gender}
               </Typography>
             </Box>
             <Box
@@ -163,13 +169,13 @@ const ContactDetails = () => {
                   fontSize: '2rem',
                   lineHeight: '0.8'
                 }}>
-                Friend
+                {selectedContact.relationship}
               </Typography>
             </Box>
           </Box>
           <Divider
             sx={{
-              mb: { xs: 3, md: 4 }
+              mb: { xs: 3, md: 5 }
             }}>
             <Chip label='Addresses' color='accent' />
           </Divider>
@@ -180,8 +186,35 @@ const ContactDetails = () => {
               alignItems: { xs: 'center', md: 'flex-start' },
               justifyContent: 'flex-start',
               gap: { xs: 2, md: 2 },
-              mb: { xs: 3, md: 5 }
+              mb: { xs: 3, md: 4 }
             }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: { xs: 'center', md: 'flex-start' },
+                justifyContent: 'flex-start'
+              }}>
+              <Typography
+                variant='subtitle1'
+                color='accent.main'
+                sx={{
+                  fontStyle: 'italic'
+                }}>
+                Email Address
+              </Typography>
+              <Typography
+                variant='h4'
+                color='accent.main'
+                gutterBottom
+                sx={{
+                  fontSize: '2rem',
+                  lineHeight: '1',
+                  textAlign: { xs: 'center', md: 'left' }
+                }}>
+                {selectedContact.emailAddress}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 display: 'flex',
@@ -206,7 +239,7 @@ const ContactDetails = () => {
                   lineHeight: '1',
                   textAlign: { xs: 'center', md: 'left' }
                 }}>
-                123 Main Stasdasdasda sdasdasdasd
+                {selectedContact.billingAddress}
               </Typography>
             </Box>
             <Box
@@ -233,13 +266,13 @@ const ContactDetails = () => {
                   lineHeight: '1',
                   textAlign: { xs: 'center', md: 'left' }
                 }}>
-                123 Main asdasdasdw sdasdasDASSdasd
+                {selectedContact.deliveryAddress}
               </Typography>
             </Box>
           </Box>
           <Divider
             sx={{
-              mb: { xs: 3, md: 4 }
+              mb: { xs: 3, md: 5 }
             }}>
             <Chip label='Phone Numbers' color='accent' />
           </Divider>
@@ -250,7 +283,7 @@ const ContactDetails = () => {
               alignItems: { xs: 'center', md: 'flex-start' },
               justifyContent: 'flex-start',
               gap: { xs: 2, md: 2 },
-              mb: { xs: 3, md: 5 }
+              mb: { xs: 3, md: 4 }
             }}>
             <Box
               sx={{
