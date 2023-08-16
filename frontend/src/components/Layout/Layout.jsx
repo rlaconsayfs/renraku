@@ -32,7 +32,10 @@ const Layout = (props) => {
           }
         } catch (error) {
           console.log(error);
-          // navigate('/login');
+          if(sessionStorage.getItem('token') !== null) {
+            sessionStorage.removeItem('token');
+          }
+          navigate('/login');
         }
       };
       fetchUser();

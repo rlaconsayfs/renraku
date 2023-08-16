@@ -14,11 +14,14 @@ import EditIcon from '@mui/icons-material/Edit';
 import EmailIcon from '@mui/icons-material/Email';
 import FemaleIcon from '@mui/icons-material/Female';
 import HandshakeIcon from '@mui/icons-material/Handshake';
+import HomeIcon from '@mui/icons-material/Home';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MaleIcon from '@mui/icons-material/Male';
 import Paper from '@mui/material/Paper';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import Typography from '@mui/material/Typography';
+import WorkIcon from '@mui/icons-material/Work';
 
 const ContactDetails = () => {
   const navigate = useNavigate();
@@ -152,6 +155,7 @@ const ContactDetails = () => {
                 }}>
                 <Typography
                   display='flex'
+                  alignItems='center'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
@@ -169,8 +173,7 @@ const ContactDetails = () => {
                   color='accent.main'
                   gutterBottom
                   sx={{
-                    fontSize: '2rem',
-                    lineHeight: '0.8'
+                    fontSize: '2rem'
                   }}>
                   {selectedContact.gender}
                 </Typography>
@@ -184,6 +187,7 @@ const ContactDetails = () => {
                 }}>
                 <Typography
                   display='flex'
+                  alignItems='center'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
@@ -197,8 +201,7 @@ const ContactDetails = () => {
                   color='accent.main'
                   gutterBottom
                   sx={{
-                    fontSize: '2rem',
-                    lineHeight: '0.8'
+                    fontSize: '2rem'
                   }}>
                   {selectedContact.relationship}
                 </Typography>
@@ -228,6 +231,7 @@ const ContactDetails = () => {
                 }}>
                 <Typography
                   display='flex'
+                  alignItems='center'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
@@ -242,7 +246,6 @@ const ContactDetails = () => {
                   gutterBottom
                   sx={{
                     fontSize: '2rem',
-                    lineHeight: '1',
                     textAlign: { xs: 'center', md: 'left' }
                   }}>
                   {selectedContact.emailAddress}
@@ -257,6 +260,7 @@ const ContactDetails = () => {
                 }}>
                 <Typography
                   display='flex'
+                  alignItems='center'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
@@ -271,7 +275,6 @@ const ContactDetails = () => {
                   gutterBottom
                   sx={{
                     fontSize: '2rem',
-                    lineHeight: '1',
                     textAlign: { xs: 'center', md: 'left' }
                   }}>
                   {selectedContact.billingAddress}
@@ -286,6 +289,7 @@ const ContactDetails = () => {
                 }}>
                 <Typography
                   display='flex'
+                  alignItems='center'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
@@ -300,7 +304,6 @@ const ContactDetails = () => {
                   gutterBottom
                   sx={{
                     fontSize: '2rem',
-                    lineHeight: '1',
                     textAlign: { xs: 'center', md: 'left' }
                   }}>
                   {selectedContact.deliveryAddress}
@@ -336,11 +339,15 @@ const ContactDetails = () => {
                         justifyContent: 'flex-start'
                       }}>
                       <Typography
+                        display='flex'
                         variant='subtitle1'
                         color='accent.main'
                         sx={{
                           fontStyle: 'italic'
                         }}>
+                        {phoneNumber.label === 'Mobile' && <SmartphoneIcon />}
+                        {phoneNumber.label === 'Home' && <HomeIcon />}
+                        {phoneNumber.label === 'Work' && <WorkIcon />}
                         {phoneNumber.label}
                       </Typography>
                       <Typography
@@ -349,7 +356,6 @@ const ContactDetails = () => {
                         gutterBottom
                         sx={{
                           fontSize: '2rem',
-                          lineHeight: '0.8',
                           textAlign: { xs: 'center', md: 'left' }
                         }}>
                         {phoneNumber.contactNumber}
