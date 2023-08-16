@@ -69,7 +69,7 @@ const ContactsList = (props) => {
               bgcolor: 'secondary.main',
               position: 'relative',
               overflow: 'auto',
-              maxHeight: { xs: '80dvh', sm: 700 },
+              maxHeight: { xs: '80dvh', sm: 750 },
               '& ul': { padding: 0 }
             }}
             subheader={<li />}>

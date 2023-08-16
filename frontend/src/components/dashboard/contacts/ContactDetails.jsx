@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Chip, Container, Divider, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import ContactAvatar from './ContactAvatar';
 import { getContact } from '../../../apis/Contacts';
+import ContactAvatar from './ContactAvatar';
 import ContactDetailsSkeleton from './ContactDetailsSkeleton';
+
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BadgeIcon from '@mui/icons-material/Badge';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
+import Divider from '@mui/material/Divider';
+import EditIcon from '@mui/icons-material/Edit';
+import EmailIcon from '@mui/icons-material/Email';
+import FemaleIcon from '@mui/icons-material/Female';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
+import MaleIcon from '@mui/icons-material/Male';
+import Paper from '@mui/material/Paper';
+import ReceiptIcon from '@mui/icons-material/Receipt';
+import Typography from '@mui/material/Typography';
 
 const ContactDetails = () => {
   const navigate = useNavigate();
@@ -84,11 +94,13 @@ const ContactDetails = () => {
                   alignItems: { xs: 'center', md: 'flex-start' }
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  <BadgeIcon sx={{ mr: 0.5 }} />
                   First Name
                 </Typography>
                 <Typography
@@ -139,11 +151,17 @@ const ContactDetails = () => {
                   justifyContent: 'flex-start'
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  {selectedContact.gender === 'Male' ? (
+                    <MaleIcon />
+                  ) : (
+                    <FemaleIcon />
+                  )}
                   Gender
                 </Typography>
                 <Typography
@@ -165,11 +183,13 @@ const ContactDetails = () => {
                   justifyContent: 'flex-start'
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  <HandshakeIcon />
                   Relationship
                 </Typography>
                 <Typography
@@ -207,11 +227,13 @@ const ContactDetails = () => {
                   justifyContent: 'flex-start'
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  <EmailIcon />
                   Email Address
                 </Typography>
                 <Typography
@@ -234,11 +256,13 @@ const ContactDetails = () => {
                   justifyContent: 'flex-start'
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  <ReceiptIcon />
                   Billing Address
                 </Typography>
                 <Typography
@@ -261,11 +285,13 @@ const ContactDetails = () => {
                   justifyContent: 'flex-start'
                 }}>
                 <Typography
+                  display='flex'
                   variant='subtitle1'
                   color='accent.main'
                   sx={{
                     fontStyle: 'italic'
                   }}>
+                  <LocalShippingIcon />
                   Delivery Address
                 </Typography>
                 <Typography
@@ -281,12 +307,14 @@ const ContactDetails = () => {
                 </Typography>
               </Box>
             </Box>
-            <Divider
-              sx={{
-                mb: { xs: 3, md: 5 }
-              }}>
-              <Chip label='Phone Numbers' color='accent' />
-            </Divider>
+            {selectedContact.phoneNumbers.length > 0 && (
+              <Divider
+                sx={{
+                  mb: { xs: 3, md: 5 }
+                }}>
+                <Chip label='Phone Numbers' color='accent' />
+              </Divider>
+            )}
             <Box
               sx={{
                 display: 'flex',
@@ -296,33 +324,39 @@ const ContactDetails = () => {
                 gap: { xs: 2, md: 2 },
                 mb: { xs: 3, md: 4 }
               }}>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: { xs: 'center', md: 'flex-start' },
-                  justifyContent: 'flex-start'
-                }}>
-                <Typography
-                  variant='subtitle1'
-                  color='accent.main'
-                  sx={{
-                    fontStyle: 'italic'
-                  }}>
-                  Label
-                </Typography>
-                <Typography
-                  variant='h4'
-                  color='accent.main'
-                  gutterBottom
-                  sx={{
-                    fontSize: '2rem',
-                    lineHeight: '0.8',
-                    textAlign: { xs: 'center', md: 'left' }
-                  }}>
-                  0910 910 9109
-                </Typography>
-              </Box>
+              {selectedContact.phoneNumbers.length > 0 &&
+                selectedContact.phoneNumbers.map((phoneNumber) => {
+                  return (
+                    <Box
+                      key={phoneNumber.id}
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: { xs: 'center', md: 'flex-start' },
+                        justifyContent: 'flex-start'
+                      }}>
+                      <Typography
+                        variant='subtitle1'
+                        color='accent.main'
+                        sx={{
+                          fontStyle: 'italic'
+                        }}>
+                        {phoneNumber.label}
+                      </Typography>
+                      <Typography
+                        variant='h4'
+                        color='accent.main'
+                        gutterBottom
+                        sx={{
+                          fontSize: '2rem',
+                          lineHeight: '0.8',
+                          textAlign: { xs: 'center', md: 'left' }
+                        }}>
+                        {phoneNumber.contactNumber}
+                      </Typography>
+                    </Box>
+                  );
+                })}
             </Box>
           </Box>
         </Box>
