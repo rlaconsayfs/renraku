@@ -35,7 +35,6 @@ const Dashboard = () => {
     try {
       const response = await getContacts(token);
       if (response.status === 200) {
-        console.log(response.data);
         setContacts(response.data);
       } else if (response.status === 204) {
         console.log('No contacts found');

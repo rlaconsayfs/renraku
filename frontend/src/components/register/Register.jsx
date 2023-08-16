@@ -94,14 +94,12 @@ const Register = () => {
           emailAddress,
           password
         });
-        console.log(response);
         if (response.status === 201) {
           console.log('Registration successful');
           setSnackBarOpenSuccess(true);
           clearFields();
         }
       } catch (error) {
-        console.log(error);
         setSnackBarOpenError(true);
       } finally {
         setRegisterDisabled(false);

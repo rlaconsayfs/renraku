@@ -11,9 +11,6 @@ export const login = async (username, password) => {
 
     if (response.status === 200) {
       return response;
-    } else {
-      console.log('Received unexpected status code:', response.status);
-      throw new Error('Unexpected error occurred');
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -52,18 +49,14 @@ export const register = async (registerDetails) => {
     });
 
     if (response.status === 201) {
-      console.log(response);
       return response;
-    } else {
-      console.log('Received unexpected status code:', response.status);
-      throw new Error('Unexpected error occurred');
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const response = error.response;
       switch (response.status) {
         case 400:
-          throw new Error('Invalid username or password');
+          throw new Error('Bad Request');
         case 500:
           throw new Error('Server error');
         default:
@@ -80,9 +73,6 @@ export const checkUsernameExists = async (username) => {
     );
     if (response.status === 200) {
       return response.data;
-    } else {
-      console.log('Received unexpected status code:', response.status);
-      throw new Error('Unexpected error occurred');
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {

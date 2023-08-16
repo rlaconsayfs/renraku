@@ -13,17 +13,14 @@ export const getContacts = async (token) => {
 
     if (response.status === 200 || response.status === 204) {
       return response;
-    } else {
-      console.log('Received unexpected status code:', response.status);
-      throw new Error('Unexpected error occurred');
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const response = error.response;
       switch (response.status) {
-        case 400:
-        case 404:
-          throw new Error('Invalid username or password');
+        case 401:
+        case 403:
+          throw new Error('Unauthorized / Forbidden');
         case 500:
           throw new Error('Server error');
         default:
@@ -45,18 +42,16 @@ export const getContact = async (token, id) => {
 
     if (response.status === 200 || response.status === 204) {
       return response;
-    } else {
-      console.log('Received unexpected status code:', response.status);
-      throw new Error('Unexpected error occurred');
     }
-  }
-  catch (error) {
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       const response = error.response;
       switch (response.status) {
         case 400:
+        case 403:
+          throw new Error('Unauthorized / Forbidden');
         case 404:
-          throw new Error('Invalid username or password');
+          throw new Error('Not found');
         case 500:
           throw new Error('Server error');
         default:
