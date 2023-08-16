@@ -4,7 +4,7 @@ import React from 'react';
 const ContactDetailsSkeleton = () => {
   return (
     <Box sx={{ m: 3 }}>
-      <Box sx={{ m: 3 }}>        
+      <Box sx={{ m: 3 }}>
         <Box sx={{ mt: 5 }}>
           <Box
             sx={{
@@ -22,10 +22,13 @@ const ContactDetailsSkeleton = () => {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: { xs: 'center', md: 'flex-start' }
+                alignItems: { xs: 'center', md: 'flex-start' },
+                gap: { xs: 2, md: 3 }
               }}>
-              <Skeleton variant='rounded' width={210} height={60}/>
-              <Skeleton variant='rounded' width={210} height={60}/>
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
             </Box>
           </Box>
           <Box
@@ -42,46 +45,22 @@ const ContactDetailsSkeleton = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
+                gap: { xs: 2, md: 3 }
               }}>
-              <Skeleton variant='rounded' width={210} height={60} />
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
             </Box>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
+                gap: { xs: 2, md: 3 }
               }}>
-              <Skeleton variant='rounded' width={210} height={60}/>
-            </Box>
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: { xs: 'column', md: 'row' },
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              gap: { xs: 2, md: 15 },
-              mb: { xs: 3, md: 4 }
-            }}>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
-              }}>
-              <Skeleton variant='rounded' width={210} height={60} />
-            </Box>
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
-              }}>
-              <Skeleton variant='rounded' width={210} height={60}/>
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
             </Box>
           </Box>
           <Box
@@ -98,18 +77,43 @@ const ContactDetailsSkeleton = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
+                gap: { xs: 2, md: 3 }
               }}>
-              <Skeleton variant='rounded' width={210} height={60} />
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
             </Box>
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: { xs: 'center', md: 'flex-start' },
-                justifyContent: 'flex-start'
+                justifyContent: 'flex-start',
+                gap: { xs: 2, md: 3 }
               }}>
-              <Skeleton variant='rounded' width={210} height={60}/>
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              gap: { xs: 2, md: 15 },
+              mb: { xs: 3, md: 4 }
+            }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: { xs: 'center', md: 'flex-start' },
+                justifyContent: 'flex-start',
+                gap: { xs: 2, md: 3 }
+              }}>
+              <Skeleton variant='rounded' width={210} height={30} />
+              <Skeleton variant='rounded' width={300} height={60} />
             </Box>
           </Box>
         </Box>
