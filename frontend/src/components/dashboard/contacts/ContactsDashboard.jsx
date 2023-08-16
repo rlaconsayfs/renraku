@@ -8,11 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
+import ContactsListSkeleton from './ContactsListSkeleton';
 
 const Dashboard = () => {
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showStarIcon, setShowStarIcon] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const groupedContacts = contacts.reduce((acc, user) => {
     const firstLetter = user.firstName.charAt(0).toUpperCase();
@@ -39,6 +41,8 @@ const Dashboard = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -76,12 +80,18 @@ const Dashboard = () => {
           </IconButton>
         </Box>
 
-        <ContactsList
-          contacts={contacts}
-          groupedContacts={groupedContacts}
-          searchTerm={searchTerm}
-          showStarIcon={showStarIcon}
-        />
+        {isLoading ? (
+          <Box sx={{m: 3}}>
+            <ContactsListSkeleton />
+          </Box>
+        ) : (
+          <ContactsList
+            contacts={contacts}
+            groupedContacts={groupedContacts}
+            searchTerm={searchTerm}
+            showStarIcon={showStarIcon}
+          />
+        )}
       </Box>
     </Paper>
   );
