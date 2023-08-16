@@ -1,7 +1,8 @@
 import React from 'react';
+import DrawerItems from './DrawerItems';
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import DrawerItems from './DrawerItems';
 
 const CustomDrawer = (props) => {
   return (

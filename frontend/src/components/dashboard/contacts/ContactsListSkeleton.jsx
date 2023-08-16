@@ -1,10 +1,9 @@
-import { LinearProgress } from '@mui/material'
-import React from 'react'
+import React from 'react';
+
+import LinearProgress from '@mui/material/LinearProgress';
 
 const ContactsListSkeleton = () => {
-  return (
-    <LinearProgress color='accent' />
-  )
-}
+  return <LinearProgress color='accent' />;
+};
 
-export default ContactsListSkeleton
+export default ContactsListSkeleton;

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Tektur:wght@400;500;600;700;800;900&display=swap');
 
-body{
+body {
   margin: 0;
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
@@ -12,7 +12,7 @@ body{
 /* Firefox */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #7A685C #E9E5E2;
+  scrollbar-color: #7a685c #e9e5e2;
 }
 
 /* Chrome, Edge and Safari */
@@ -22,24 +22,24 @@ body{
 }
 *::-webkit-scrollbar-track {
   border-radius: 5px;
-  background-color: #E9E5E2;
+  background-color: #e9e5e2;
 }
 
 *::-webkit-scrollbar-track:hover {
-  background-color: #DDDAD7;
+  background-color: #dddad7;
 }
 
 *::-webkit-scrollbar-track:active {
-  background-color: #E4E0DD;
+  background-color: #e4e0dd;
 }
 
 *::-webkit-scrollbar-thumb {
   border-radius: 5px;
-  background-color: #7A685C;
+  background-color: #7a685c;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #7A685C;
+  background-color: #7a685c;
 }
 
 *::-webkit-scrollbar-thumb:active {

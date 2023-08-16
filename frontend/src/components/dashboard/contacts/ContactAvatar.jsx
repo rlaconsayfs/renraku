@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import stringAvatar from '../../../assets/avatarColorizer';
 import { stringToColor } from '../../../assets/avatarColorizer';
 import { generateAvatarUrl } from '../../../assets/getDicebearAvatar';
+
 import Avatar from '@mui/material/Avatar';
 
 const ContactAvatar = ({ contact, size }) => {
   const [avatarUrl, setAvatarUrl] = useState(null);
-
 
   useEffect(() => {
     const fetchAvatar = async () => {

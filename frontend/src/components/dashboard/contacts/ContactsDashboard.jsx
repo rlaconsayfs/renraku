@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getContacts } from '../../../apis/Contacts';
 import ContactsList from './ContactsList';
+import ContactsListSkeleton from './ContactsListSkeleton';
+
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
@@ -8,7 +10,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined';
 import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
-import ContactsListSkeleton from './ContactsListSkeleton';
 
 const Dashboard = () => {
   const [contacts, setContacts] = useState([]);
@@ -81,7 +82,7 @@ const Dashboard = () => {
         </Box>
 
         {isLoading ? (
-          <Box sx={{m: 3}}>
+          <Box sx={{ m: 3 }}>
             <ContactsListSkeleton />
           </Box>
         ) : (

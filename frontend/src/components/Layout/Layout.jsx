@@ -3,9 +3,10 @@ import { UserContext } from '../../App';
 import { Outlet } from 'react-router';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../../apis/User';
-import Box from '@mui/material/Box';
 import CustomAppBar from './CustomAppBar';
 import CustomDrawer from './CustomDrawer';
+
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
 const drawerWidth = 240;
@@ -64,7 +65,7 @@ const Layout = (props) => {
         component='main'
         sx={{
           flexGrow: 1,
-          p: {xs: 0, md: 3},
+          p: { xs: 0, md: 3 },
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           transition: 'padding 0.3s ease-in-out'
         }}>
