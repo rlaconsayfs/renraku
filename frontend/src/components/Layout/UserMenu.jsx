@@ -34,7 +34,10 @@ const UserMenu = (props) => {
         color='accent'
         aria-controls={open ? 'account-menu' : undefined}
         aria-haspopup='true'
-        aria-expanded={open ? 'true' : undefined}>
+        aria-expanded={open ? 'true' : undefined}
+        sx={{
+          textTransform: 'unset'
+        }}>
         <Typography
           sx={{
             mr: 1
