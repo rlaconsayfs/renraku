@@ -6,13 +6,13 @@ import Layout from './components/Layout/Layout';
 import ContactsDashboard from './components/dashboard/contacts/ContactsDashboard';
 import FavoritesDashboard from './components/dashboard/favorites/FavoritesDashboard';
 import ContactsCreate from './components/dashboard/create/ContactsCreate';
-import ContactDetails from './components/dashboard/contacts/ContactDetails'
+import ContactDetails from './components/dashboard/contacts/ContactDetails';
 import NotFound from './components/notfound/NotFound';
+import Logout from './components/logout/Logout';
 
 export const UserContext = createContext();
 
 const App = () => {
-
   const [user, setUser] = useState(null);
 
   return (
@@ -21,6 +21,7 @@ const App = () => {
         <Routes>
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='logout' element={<Logout />} />
           <Route path='/' element={<Layout />}>
             <Route index element={<ContactsDashboard />} />
             <Route path='favorites' element={<FavoritesDashboard />} />
