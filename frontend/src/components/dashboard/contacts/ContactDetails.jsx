@@ -73,7 +73,13 @@ const ContactDetails = () => {
               startIcon={<ArrowBackIcon />}>
               Contacts
             </Button>
-            <Button color='accent' variant='outlined' startIcon={<EditIcon />}>
+            <Button
+              onClick={() =>
+                navigate(`/contacts/${id}/edit`, { state: { selectedContact} })
+              }
+              color='accent'
+              variant='outlined'
+              startIcon={<EditIcon />}>
               Edit
             </Button>
           </Box>
