@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,6 +12,7 @@ import Person from '@mui/icons-material/Person';
 import Typography from '@mui/material/Typography';
 
 const UserMenu = (props) => {
+  const [user, setUser] = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
@@ -50,8 +52,9 @@ const UserMenu = (props) => {
             width: 32,
             height: 32,
             bgcolor: 'accent.main'
-          }}
-        />
+          }}>
+          {user.firstName.charAt(0)}
+        </Avatar>
       </Button>
       <Menu
         anchorEl={anchorEl}
