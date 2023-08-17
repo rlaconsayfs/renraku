@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ContactAvatar from './ContactAvatar';
+import { patchContactIsFavorite } from '../../../apis/Contacts';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,7 +16,8 @@ import StarIcon from '@mui/icons-material/Star';
 import Typography from '@mui/material/Typography';
 
 const ContactsList = (props) => {
-  const { contacts, groupedContacts, searchTerm, showStarIcon } = props;
+  const { contacts, setContacts, groupedContacts, searchTerm, showStarIcon } =
+    props;
   const navigate = useNavigate();
 
   // Filter contacts based on the search term
@@ -30,6 +32,25 @@ const ContactsList = (props) => {
   const filteredAndFavoriteContacts = showStarIcon
     ? displayedContacts.filter((contact) => contact.isFavorite)
     : displayedContacts;
+
+  const handleFavoriteClick = async (e, id, isFavorite) => {
+    e.stopPropagation();
+    const token = sessionStorage.getItem('token');
+    try {
+      const response = await patchContactIsFavorite(token, id, !isFavorite);
+      if (response.status === 200) {
+        setContacts((prevContacts) =>
+          prevContacts.map((contact) =>
+            contact.id === id
+              ? { ...contact, isFavorite: !isFavorite }
+              : contact
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (filteredAndFavoriteContacts.length === 0) {
     return (
@@ -118,18 +139,24 @@ const ContactsList = (props) => {
                           />
                           {contact.isFavorite ? (
                             <IconButton
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                alert(contact.isFavorite);
-                              }}>
+                              onClick={(e) =>
+                                handleFavoriteClick(
+                                  e,
+                                  contact.id,
+                                  contact.isFavorite
+                                )
+                              }>
                               <StarIcon />
                             </IconButton>
                           ) : (
                             <IconButton
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                alert(contact.isFavorite);
-                              }}>
+                              onClick={(e) =>
+                                handleFavoriteClick(
+                                  e,
+                                  contact.id,
+                                  contact.isFavorite
+                                )
+                              }>
                               <StarBorderOutlinedIcon />
                             </IconButton>
                           )}

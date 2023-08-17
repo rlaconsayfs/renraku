@@ -90,6 +90,7 @@ const Dashboard = () => {
         ) : (
           <ContactsList
             contacts={contacts}
+            setContacts={setContacts}
             groupedContacts={groupedContacts}
             searchTerm={searchTerm}
             showStarIcon={showStarIcon}
