@@ -21,12 +21,17 @@ const UserMenu = (props) => {
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const handleProfile = () => {
+    navigate(`/${user.username}`);
   };
 
   const handleLogout = () => {
     navigate('/logout');
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -68,6 +73,7 @@ const UserMenu = (props) => {
             overflow: 'visible',
             filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
             mt: 1.5,
+            bgcolor: 'background.main',
             '& .MuiAvatar-root': {
               width: 32,
               height: 32,
@@ -82,7 +88,7 @@ const UserMenu = (props) => {
               right: 22,
               width: 10,
               height: 10,
-              bgcolor: 'background.paper',
+              bgcolor: 'background.main',
               transform: 'translateY(-50%) rotate(45deg)',
               zIndex: 0
             }
@@ -90,7 +96,7 @@ const UserMenu = (props) => {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handleProfile}>
           <ListItemIcon>
             <Person />
           </ListItemIcon>
