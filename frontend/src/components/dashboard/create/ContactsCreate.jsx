@@ -140,7 +140,9 @@ const ContactsCreate = () => {
   const handleContactNumberChange = (event, indexToChange) => {
     const digitsRegex = /^[0-9]+$/;
     const { value } = event.target;
-    if (digitsRegex.test(value) || value === '') {
+
+    // Ensure the value is composed of digits and has a length of at most 15
+    if ((digitsRegex.test(value) || value === '') && value.length <= 15) {
       const updatedPhoneNumbers = [...phoneNumbers];
       updatedPhoneNumbers[indexToChange].contactNumber = value;
       setPhoneNumbers(updatedPhoneNumbers);
@@ -405,6 +407,7 @@ const ContactsCreate = () => {
                     onChange={handleDeliveryAddressChange}
                     color='accent'
                     required
+                    multiline
                     fullWidth
                     id='deliveryaddress'
                     name='deliveryaddress'

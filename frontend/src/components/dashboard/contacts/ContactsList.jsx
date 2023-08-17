@@ -20,6 +20,30 @@ const ContactsList = (props) => {
     props;
   const navigate = useNavigate();
 
+  const handleContactClick = (id) => {
+    // Get the current list of recent contact IDs from local storage
+    const recentContactIds =
+      JSON.parse(localStorage.getItem('recentContactIds')) || [];
+
+    // Remove the clicked contact ID if it's already in the list
+    const updatedContactIds = recentContactIds.filter(
+      (contactId) => contactId !== id
+    );
+
+    // Add the clicked contact ID at the beginning of the list
+    updatedContactIds.unshift(id);
+
+    // Keep only the most recent 3 contact IDs
+    if (updatedContactIds.length > 3) {
+      updatedContactIds.pop();
+    }
+
+    // Update the recent contact IDs list in local storage
+    localStorage.setItem('recentContactIds', JSON.stringify(updatedContactIds));
+
+    navigate(`/contacts/${id}`);
+  };
+
   // Filter contacts based on the search term
   const filteredContacts = contacts.filter((contact) => {
     const fullName = `${contact.firstName} ${contact.lastName}`;
@@ -125,7 +149,7 @@ const ContactsList = (props) => {
                       {contactsInGroup.map((contact) => (
                         <ListItem
                           key={`item-${letter}-${contact.id}`}
-                          onClick={() => navigate(`/contacts/${contact.id}`)}
+                          onClick={() => handleContactClick(contact.id)}
                           sx={{
                             cursor: 'pointer',
                             transition: 'all 0.2s ease',

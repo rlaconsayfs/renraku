@@ -26,7 +26,9 @@ const Register = () => {
   const [usernameError, setUsernameError] = useState(false);
   const [usernameExists, setUsernameExists] = useState(false);
   const [firstName, setFirstName] = useState('');
+  const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState('');
+  const [lastNameError, setLastNameError] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
   const [emailAddressError, setEmailAddressError] = useState(false);
   const [password, setPassword] = useState('');
@@ -202,6 +204,7 @@ const Register = () => {
                 id='firstName'
                 name='firstName'
                 label='First Name'
+                error={firstNameError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
             </Grid>
@@ -215,6 +218,7 @@ const Register = () => {
                 id='lastName'
                 name='lastName'
                 label='Last Name'
+                error={lastNameError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
             </Grid>

@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 const Logout = () => {
   useTitle('Logout');
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,9 +17,8 @@ const Logout = () => {
 
   const loggingOut = async () => {
     setTimeout(() => {
-      if (sessionStorage.getItem('token')) {
-        sessionStorage.removeItem('token');
-      }
+      sessionStorage.removeItem('token');
+      localStorage.removeItem('recentContactIds');
       navigate('/login');
     }, 2000);
   };

@@ -166,7 +166,9 @@ const ContactsEdit = () => {
   const handleContactNumberChange = (event, indexToChange) => {
     const digitsRegex = /^[0-9]+$/;
     const { value } = event.target;
-    if (digitsRegex.test(value) || value === '') {
+
+    // Ensure the value is composed of digits and has a length of at most 15
+    if ((digitsRegex.test(value) || value === '') && value.length <= 15) {
       const updatedPhoneNumbers = [...phoneNumbers];
       updatedPhoneNumbers[indexToChange].contactNumber = value;
       setPhoneNumbers(updatedPhoneNumbers);
@@ -203,7 +205,7 @@ const ContactsEdit = () => {
           clearFields();
           setTimeout(() => {
             navigate(`/contacts/${contact.id}`);
-          }, 2000);
+          }, 1000);
         }
       } catch (error) {
         setSnackBarOpenError(true);
@@ -223,6 +225,17 @@ const ContactsEdit = () => {
       const response = await deleteContact(token, contact.id);
       if (response.status === 200) {
         console.log('Delete successful');
+
+        const recentContactIds =
+          JSON.parse(localStorage.getItem('recentContactIds')) || [];
+        const updatedRecentIds = recentContactIds.filter(
+          (id) => id !== contact.id
+        );
+        localStorage.setItem(
+          'recentContactIds',
+          JSON.stringify(updatedRecentIds)
+        );
+
         navigate('/');
       }
     } catch (error) {

@@ -118,7 +118,8 @@ const ContactDetails = () => {
                   gutterBottom
                   sx={{
                     fontSize: { xs: '3rem', md: '4rem' },
-                    lineHeight: '0.8'
+                    lineHeight: '0.8',
+                    textAlign: { xs: 'center', md: 'left' }
                   }}>
                   {selectedContact.firstName}
                 </Typography>
@@ -136,7 +137,8 @@ const ContactDetails = () => {
                   gutterBottom
                   sx={{
                     fontSize: { xs: '3rem', md: '4rem' },
-                    lineHeight: '0.8'
+                    lineHeight: '0.8',
+                    textAlign: { xs: 'center', md: 'left' }
                   }}>
                   {selectedContact.lastName}
                 </Typography>

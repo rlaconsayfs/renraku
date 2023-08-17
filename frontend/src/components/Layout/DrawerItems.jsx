@@ -9,9 +9,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import StarIcon from '@mui/icons-material/Star';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import HistoryIcon from '@mui/icons-material/History';
 
 const DrawerItems = () => {
   const navigate = useNavigate();
@@ -23,9 +23,9 @@ const DrawerItems = () => {
       path: '/'
     },
     {
-      text: 'Favorites',
-      icon: <StarIcon />,
-      path: '/favorites'
+      text: 'Recents',
+      icon: <HistoryIcon />,
+      path: '/recents'
     }
   ];
 
