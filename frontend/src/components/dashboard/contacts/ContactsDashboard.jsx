@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getContacts } from '../../../apis/Contacts';
 import ContactsList from './ContactsList';
 import ContactsListSkeleton from './ContactsListSkeleton';
+import useTitle from '../../../hooks/useTitle';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +13,8 @@ import StarIcon from '@mui/icons-material/Star';
 import TextField from '@mui/material/TextField';
 
 const Dashboard = () => {
+  useTitle('Renraku');
+
   const [contacts, setContacts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showStarIcon, setShowStarIcon] = useState(false);

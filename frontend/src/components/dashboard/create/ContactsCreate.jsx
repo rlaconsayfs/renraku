@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createContact } from '../../../apis/Contacts';
+import useTitle from '../../../hooks/useTitle';
 
 import AddIcCallIcon from '@mui/icons-material/AddIcCall';
 import BadgeIcon from '@mui/icons-material/Badge';
@@ -32,6 +33,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 const ContactsCreate = () => {
+  useTitle('Create');
+
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastName, setLastName] = useState('');

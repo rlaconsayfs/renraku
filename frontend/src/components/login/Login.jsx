@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link as RouterLink } from 'react-router-dom';
 import { login } from '../../apis/Auth';
+import useTitle from '../../hooks/useTitle';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -18,6 +19,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
 const Login = () => {
+  useTitle('Login');
+
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState(false);
   const [password, setPassword] = useState('');
