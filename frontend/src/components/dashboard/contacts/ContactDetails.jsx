@@ -75,7 +75,7 @@ const ContactDetails = () => {
             </Button>
             <Button
               onClick={() =>
-                navigate(`/contacts/${id}/edit`, { state: { selectedContact} })
+                navigate(`/contacts/${id}/edit`, { state: { selectedContact } })
               }
               color='accent'
               variant='outlined'

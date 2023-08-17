@@ -1,18 +1,7 @@
 import React from 'react';
 
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Chip from '@mui/material/Chip';
-import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
-import LinearProgress from '@mui/material/LinearProgress';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import AddIcCallIcon from '@mui/icons-material/AddIcCall';
-import BadgeIcon from '@mui/icons-material/Badge';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import EmailIcon from '@mui/icons-material/Email';
 import Skeleton from '@mui/material/Skeleton';
 
 const ContactsEditSkeleton = () => {

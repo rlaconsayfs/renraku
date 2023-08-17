@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import ContactsIcon from '@mui/icons-material/Contacts';
 import Divider from '@mui/material/Divider';
+import HistoryIcon from '@mui/icons-material/History';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -11,7 +12,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import HistoryIcon from '@mui/icons-material/History';
 
 const DrawerItems = () => {
   const navigate = useNavigate();

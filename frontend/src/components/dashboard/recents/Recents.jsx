@@ -4,15 +4,13 @@ import RecentsSkeleton from './RecentsSkeleton';
 import useTitle from '../../../hooks/useTitle';
 import ContactAvatar from '../contacts/ContactAvatar';
 
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
-import {
-  EmailOutlined,
-  FemaleOutlined,
-  MaleOutlined
-} from '@mui/icons-material';
+import EmailOutlined from '@mui/icons-material/EmailOutlined';
+import FemaleOutlined from '@mui/icons-material/FemaleOutlined';
+import MaleOutlined from '@mui/icons-material/MaleOutlined';
+import Paper from '@mui/material/Paper';
 import RecentActorsIcon from '@mui/icons-material/RecentActors';
+import Typography from '@mui/material/Typography';
 
 const Recents = () => {
   useTitle('Recents');
@@ -52,14 +50,15 @@ const Recents = () => {
       {isLoading ? (
         <RecentsSkeleton />
       ) : recentContactIds.length === 0 ? (
-        <Box sx={{
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}>
-          <RecentActorsIcon sx={{ fontSize: 200 }} color='accent' />          
+        <Box
+          sx={{
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+          <RecentActorsIcon sx={{ fontSize: 200 }} color='accent' />
           <Typography variant='h3' color='accent.main'>
             No recent contacts
           </Typography>
@@ -93,7 +92,7 @@ const Recents = () => {
                   sx={{
                     display: 'flex',
                     flexDirection: 'column',
-                    gap: 2,
+                    gap: 2
                   }}>
                   <Box
                     sx={{
