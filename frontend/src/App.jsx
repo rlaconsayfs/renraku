@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { createContext, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './components/login/Login';
+import Register from './components/register/Register';
+import Layout from './components/Layout/Layout';
+import ContactsDashboard from './components/dashboard/contacts/ContactsDashboard';
+import ContactsCreate from './components/dashboard/create/ContactsCreate';
+import ContactDetails from './components/dashboard/contacts/ContactDetails';
+import NotFound from './components/notfound/NotFound';
+import Logout from './components/logout/Logout';
+import ContactsEdit from './components/dashboard/edit/ContactsEdit';
+import Recents from './components/dashboard/recents/Recents';
+import UserDetails from './components/dashboard/user/UserDetails';
+import UserEdit from './components/dashboard/user/UserEdit';
 
-function App() {
-  const [count, setCount] = useState(0)
+export const UserContext = createContext();
+
+const App = () => {
+  const [user, setUser] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <UserContext.Provider value={[user, setUser]}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='login' element={<Login />} />
+          <Route path='register' element={<Register />} />
+          <Route path='logout' element={<Logout />} />
+          <Route path='/' element={<Layout />}>
+            <Route index element={<ContactsDashboard />} />
+            <Route path='recents' element={<Recents />} />
+            <Route path='create' element={<ContactsCreate />} />
+            <Route path='contacts/:id' element={<ContactDetails />} />
+            <Route path='contacts/:id/edit' element={<ContactsEdit />} />
+            <Route path='/:username' element={<UserDetails />} />
+            <Route path='/:username/edit' element={<UserEdit />} />
+          </Route>
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </UserContext.Provider>
+  );
+};
 
-export default App
+export default App;
