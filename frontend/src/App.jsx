@@ -11,6 +11,7 @@ import Logout from './components/logout/Logout';
 import ContactsEdit from './components/dashboard/edit/ContactsEdit';
 import Recents from './components/dashboard/recents/Recents';
 import UserDetails from './components/dashboard/user/UserDetails';
+import UserEdit from './components/dashboard/user/UserEdit';
 
 export const UserContext = createContext();
 
@@ -30,7 +31,8 @@ const App = () => {
             <Route path='create' element={<ContactsCreate />} />
             <Route path='contacts/:id' element={<ContactDetails />} />
             <Route path='contacts/:id/edit' element={<ContactsEdit />} />
-            <Route path='/:userame' element={<UserDetails />} />
+            <Route path='/:username' element={<UserDetails />} />
+            <Route path='/:username/edit' element={<UserEdit />} />
           </Route>
           <Route path='*' element={<NotFound />} />
         </Routes>

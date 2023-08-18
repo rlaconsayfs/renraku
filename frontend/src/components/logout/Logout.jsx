@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { UserContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 
@@ -8,6 +9,7 @@ import Typography from '@mui/material/Typography';
 
 const Logout = () => {
   useTitle('Logout');
+  const [user, setUser] = useContext(UserContext);
 
   const navigate = useNavigate();
 
@@ -19,6 +21,7 @@ const Logout = () => {
     setTimeout(() => {
       sessionStorage.removeItem('token');
       localStorage.removeItem('recentContactIds');
+      setUser(null);
       navigate('/login');
     }, 2000);
   };
