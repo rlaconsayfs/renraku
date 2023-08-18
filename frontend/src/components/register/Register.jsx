@@ -21,7 +21,7 @@ import Typography from '@mui/material/Typography';
 
 const Register = () => {
   useTitle('Register');
-  
+
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState(false);
   const [usernameExists, setUsernameExists] = useState(false);
@@ -80,7 +80,9 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (
+    if (passwordConfirm !== password) {
+      setPasswordConfirmError(true);
+    } else if (
       !usernameError &&
       !usernameExists &&
       firstName &&
