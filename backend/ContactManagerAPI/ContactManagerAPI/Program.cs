@@ -1,3 +1,4 @@
+using ContactManagerAPI.Initializer;
 using ContactManagerAPI.Repositories.Context;
 using ContactManagerAPI.Repositories.Contracts;
 using ContactManagerAPI.Repositories.Repositories;
@@ -148,6 +149,8 @@ namespace ContactManagerAPI
 
 
             app.MapControllers();
+
+            app.Seed();
 
             app.Run();
 
