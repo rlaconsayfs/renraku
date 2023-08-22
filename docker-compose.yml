@@ -1,9 +1,7 @@
 version: '3.8'
 services:
   api:
-    build:
-      context: ./backend/ContactManagerAPI
-      dockerfile: Dockerfile
+    image: rlaconsay/renraku-api:latest
     ports:
       - "7295:80"
     depends_on:
@@ -25,8 +23,6 @@ services:
       - "1433:1433"
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: rlaconsay/renraku-frontend:latest
     ports:
       - "5173:5173"
