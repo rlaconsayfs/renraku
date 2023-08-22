@@ -65,6 +65,7 @@ const UserDetails = () => {
               onClick={() => navigate(`/${user.username}/edit`)}
               color='accent'
               variant='outlined'
+              disabled={true}
               startIcon={<EditIcon />}>
               Edit
             </Button>
