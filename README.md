@@ -46,14 +46,14 @@ Run:
 
 Head over to `http://localhost:5173/` to start using the application or in docker desktop: ![frontendstart](frontendstart.png)
 
-==**Known Issue**== :warning:
+**Known Issue** :warning: \
 If api-1 container exits after docker compose, make sure there are no same instance of the SqlServer running. Stop and Restart the containers.
 
 ---
 
 ### Prepared by:
 
-**Ethan** - Raphael Pierre Antonni Laconsay
+**Ethan** - Raphael Pierre Antonni Laconsay \
 [GitHub](https://github.com/rlaconsayfs)
 
 <img src="phonebook.gif" alt="phonebook" width="250" height="250" />
