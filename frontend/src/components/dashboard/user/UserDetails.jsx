@@ -66,7 +66,10 @@ const UserDetails = () => {
               color='accent'
               variant='outlined'
               disabled={true}
-              startIcon={<EditIcon />}>
+              startIcon={<EditIcon />}
+              sx={{
+                visibility: 'hidden'
+              }}>
               Edit
             </Button>
           </Box>

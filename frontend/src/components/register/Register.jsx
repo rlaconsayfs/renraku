@@ -37,6 +37,7 @@ const Register = () => {
   const [lastNameMaxError, setLastNameMaxError] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
   const [emailAddressError, setEmailAddressError] = useState(false);
+  const [emailAddressMaxError, setEmailAddressMaxError] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState(false);
   const [passwordConfirm, setPasswordConfirm] = useState('');
@@ -99,6 +100,11 @@ const Register = () => {
   };
 
   const handleEmailAddressChange = (event) => {
+    if (event.target.value.length > 100) {
+      setEmailAddressMaxError(true);
+    } else {
+      setEmailAddressMaxError(false);
+    }
     setEmailAddress(event.target.value);
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     setEmailAddressError(!regex.test(event.target.value));
@@ -130,6 +136,7 @@ const Register = () => {
       !lastNameMinError &&
       !lastNameMaxError &&
       !emailAddressError &&
+      !emailAddressMaxError &&
       !passwordError &&
       !passwordConfirmError
     ) {
@@ -173,10 +180,19 @@ const Register = () => {
     setUsername('');
     setUsernameError(false);
     setUsernameExists(false);
+    setUsernameMinError(false);
+    setUsernameMaxError(false);
     setFirstName('');
+    setFirstNameError(false);
+    setFirstNameMinError(false);
+    setFirstNameMaxError(false);
     setLastName('');
+    setLastNameError(false);
+    setLastNameMinError(false);
+    setLastNameMaxError(false);
     setEmailAddress('');
     setEmailAddressError(false);
+    setEmailAddressMaxError(false);
     setPassword('');
     setPasswordError(false);
     setPasswordConfirm('');
@@ -318,12 +334,18 @@ const Register = () => {
                 name='email-register'
                 label='Email Address'
                 type='email'
-                error={emailAddressError}
+                error={emailAddressError || emailAddressMaxError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
               {emailAddressError && (
                 <FormHelperText error>
                   {emailAddressError && 'Please enter a valid email address'}
+                </FormHelperText>
+              )}
+              {emailAddressMaxError && (
+                <FormHelperText error>
+                  {emailAddressMaxError &&
+                    'Email address must be less than 100 characters long'}
                 </FormHelperText>
               )}
             </Grid>
