@@ -71,7 +71,6 @@ export const deleteUser = async (token, id) => {
   };
 
   try {
-    console.log(id)
     const response = await axios.delete(`${USER_URL}${id}`, config);
     if (response.status === 200) {
       return response;

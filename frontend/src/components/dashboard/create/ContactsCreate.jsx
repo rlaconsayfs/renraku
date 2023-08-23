@@ -207,7 +207,6 @@ const ContactsCreate = () => {
     event.preventDefault();
     const check = checkFieldErrors();
     if (!check) {
-      console.log('Submit');
       try {
         const token = sessionStorage.getItem('token');
         setCreateDisabled(true);
@@ -223,7 +222,6 @@ const ContactsCreate = () => {
           phoneNumbers
         });
         if (response.status === 201) {
-          console.log('Create successful');
           setSnackBarOpenSuccess(true);
           clearFields();
         }

@@ -51,6 +51,12 @@ If api-1 container exits after docker compose, make sure there are no same insta
 
 ---
 
+### Using the application
+
+There is a  default user made with a username and password: `admin`, `admin` respectively.
+
+---
+
 ### Prepared by:
 
 **Ethan** - Raphael Pierre Antonni Laconsay \
