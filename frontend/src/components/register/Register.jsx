@@ -25,10 +25,16 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState(false);
   const [usernameExists, setUsernameExists] = useState(false);
+  const [usernameMinError, setUsernameMinError] = useState(false);
+  const [usernameMaxError, setUsernameMaxError] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
+  const [firstNameMinError, setFirstNameMinError] = useState(false);
+  const [firstNameMaxError, setFirstNameMaxError] = useState(false);
   const [lastName, setLastName] = useState('');
   const [lastNameError, setLastNameError] = useState(false);
+  const [lastNameMinError, setLastNameMinError] = useState(false);
+  const [lastNameMaxError, setLastNameMaxError] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
   const [emailAddressError, setEmailAddressError] = useState(false);
   const [password, setPassword] = useState('');
@@ -41,6 +47,16 @@ const Register = () => {
   const [snackBarOpenError, setSnackBarOpenError] = useState(false);
 
   const handleUsernameChange = (event) => {
+    if (event.target.value.length < 2) {
+      setUsernameMinError(true);
+    } else {
+      setUsernameMinError(false);
+    }
+    if (event.target.value.length > 50) {
+      setUsernameMaxError(true);
+    } else {
+      setUsernameMaxError(false);
+    }
     setUsername(event.target.value);
     setUsernameExists(false);
     const regex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+|\s+|null/gi;
@@ -55,10 +71,30 @@ const Register = () => {
   };
 
   const handleFirstNameChange = (event) => {
+    if (event.target.value.length < 2) {
+      setFirstNameMinError(true);
+    } else {
+      setFirstNameMinError(false);
+    }
+    if (event.target.value.length > 50) {
+      setFirstNameMaxError(true);
+    } else {
+      setFirstNameMaxError(false);
+    }
     setFirstName(event.target.value);
   };
 
   const handleLastNameChange = (event) => {
+    if (event.target.value.length < 2) {
+      setLastNameMinError(true);
+    } else {
+      setLastNameMinError(false);
+    }
+    if (event.target.value.length > 50) {
+      setLastNameMaxError(true);
+    } else {
+      setLastNameMaxError(false);
+    }
     setLastName(event.target.value);
   };
 
@@ -85,8 +121,14 @@ const Register = () => {
     } else if (
       !usernameError &&
       !usernameExists &&
+      !usernameMinError &&
+      !usernameMaxError &&
       firstName &&
+      !firstNameMinError &&
+      !firstNameMaxError &&
       lastName &&
+      !lastNameMinError &&
+      !lastNameMaxError &&
       !emailAddressError &&
       !passwordError &&
       !passwordConfirmError
@@ -181,7 +223,12 @@ const Register = () => {
                 name='username-register'
                 label='Username'
                 autoFocus
-                error={usernameError || usernameExists}
+                error={
+                  usernameError ||
+                  usernameExists ||
+                  usernameMinError ||
+                  usernameMaxError
+                }
                 InputProps={{ ...turnOffAutocomplete }}
               />
               {usernameError && (
@@ -195,6 +242,18 @@ const Register = () => {
                   {usernameExists && 'Username already exists'}
                 </FormHelperText>
               )}
+              {usernameMinError && (
+                <FormHelperText error>
+                  {usernameMinError &&
+                    'Username must be at least 2 characters long'}
+                </FormHelperText>
+              )}
+              {usernameMaxError && (
+                <FormHelperText error>
+                  {usernameMaxError &&
+                    'Username must be less than 50 characters long'}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -206,9 +265,21 @@ const Register = () => {
                 id='firstName'
                 name='firstName'
                 label='First Name'
-                error={firstNameError}
+                error={firstNameError || firstNameMinError || firstNameMaxError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
+              {firstNameMinError && (
+                <FormHelperText error>
+                  {firstNameMinError &&
+                    'First name must be at least 2 characters long'}
+                </FormHelperText>
+              )}
+              {firstNameMaxError && (
+                <FormHelperText error>
+                  {firstNameMaxError &&
+                    'First name must be less than 50 characters long'}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -220,9 +291,21 @@ const Register = () => {
                 id='lastName'
                 name='lastName'
                 label='Last Name'
-                error={lastNameError}
+                error={lastNameError || lastNameMinError || lastNameMaxError}
                 InputProps={{ ...turnOffAutocomplete }}
               />
+              {lastNameMinError && (
+                <FormHelperText error>
+                  {lastNameMinError &&
+                    'Last name must be at least 2 characters long'}
+                </FormHelperText>
+              )}
+              {lastNameMaxError && (
+                <FormHelperText error>
+                  {lastNameMaxError &&
+                    'Last name must be less than 50 characters long'}
+                </FormHelperText>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -297,6 +380,8 @@ const Register = () => {
             disabled={
               usernameError ||
               usernameExists ||
+              usernameMinError ||
+              usernameMaxError ||
               emailAddressError ||
               passwordError ||
               passwordConfirmError ||
@@ -305,7 +390,11 @@ const Register = () => {
               !password ||
               !passwordConfirm ||
               !firstName ||
+              firstNameMinError ||
+              firstNameMaxError ||
               !lastName ||
+              lastNameMinError ||
+              lastNameMaxError ||
               registerDisabled
             }
             sx={{ mt: 3 }}>
