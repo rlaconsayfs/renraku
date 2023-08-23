@@ -40,7 +40,6 @@ const Dashboard = () => {
       if (response.status === 200) {
         setContacts(response.data);
       } else if (response.status === 204) {
-        console.log('No contacts found');
       }
     } catch (error) {
       console.log(error);

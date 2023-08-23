@@ -28,7 +28,6 @@ const UserDetails = () => {
       const token = sessionStorage.getItem('token');
       const response = await deleteUser(token, user.id);
       if (response.status === 200) {
-        console.log('User deleted');
         navigate('/logout');
       }
     } catch (error) {

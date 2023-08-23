@@ -151,7 +151,6 @@ const Register = () => {
           password
         });
         if (response.status === 201) {
-          console.log('Registration successful');
           setSnackBarOpenSuccess(true);
           clearFields();
         }

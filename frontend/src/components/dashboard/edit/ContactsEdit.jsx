@@ -248,7 +248,6 @@ const ContactsEdit = () => {
           phoneNumbers
         });
         if (response.status === 200) {
-          console.log('Create successful');
           setSnackBarOpenSuccess(true);
           clearFields();
           setTimeout(() => {
@@ -272,7 +271,6 @@ const ContactsEdit = () => {
       setLoaderVisibility(true);
       const response = await deleteContact(token, contact.id);
       if (response.status === 200) {
-        console.log('Delete successful');
 
         const recentContactIds =
           JSON.parse(localStorage.getItem('recentContactIds')) || [];

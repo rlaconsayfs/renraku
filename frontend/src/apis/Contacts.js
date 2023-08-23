@@ -113,7 +113,6 @@ export const createContact = async (token, contact) => {
     const response = await axios.post(`${CONTACT_URL}`, contact, config);
 
     if (response.status === 201) {
-      console.log(response);
       return response;
     }
   } catch (error) {
@@ -158,7 +157,6 @@ export const patchContactIsFavorite = async (token, id, value) => {
     }
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      console.log(error);
       const response = error.response;
       switch (response.status) {
         case 400:
@@ -229,7 +227,6 @@ export const updateContact = async (token, id, contact) => {
     const response = await axios.put(`${CONTACT_URL}${id}`, contact, config);
 
     if (response.status === 200) {
-      console.log(response);
       return response;
     }
   } catch (error) {

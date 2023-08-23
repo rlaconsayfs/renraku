@@ -25,7 +25,6 @@ const Recents = () => {
   }, []);
 
   const fetchRecentContacts = async () => {
-    console.log(recentContactIds);
     const token = sessionStorage.getItem('token');
 
     const promiseData = await Promise.all(
@@ -33,7 +32,6 @@ const Recents = () => {
         try {
           const response = await getContact(token, id);
           if (response.status === 200) {
-            console.log(response.data);
             return response.data;
           }
         } catch (error) {
