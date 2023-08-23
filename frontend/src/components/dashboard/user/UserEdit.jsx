@@ -8,8 +8,6 @@ const UserEdit = () => {
   const [user, setUser] = useContext(UserContext)
   useTitle(`Edit | ${user.username}`)
 
-  console.log(user)
-
   const [firstName, setFirstName] = useState(user.firstName)
   const [lastName, setLastName] = useState(user.lastName)
   const [emails, setEmail] = useState(user.email)
