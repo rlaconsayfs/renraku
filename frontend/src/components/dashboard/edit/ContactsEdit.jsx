@@ -44,17 +44,25 @@ const ContactsEdit = () => {
   const [contact, setContact] = useState({});
   const [firstName, setFirstName] = useState('');
   const [firstNameError, setFirstNameError] = useState(false);
+  const [firstNameMinError, setFirstNameMinError] = useState(false);
+  const [firstNameMaxError, setFirstNameMaxError] = useState(false);
   const [lastName, setLastName] = useState('');
   const [lastNameError, setLastNameError] = useState(false);
+  const [lastNameMinError, setLastNameMinError] = useState(false);
+  const [lastNameMaxError, setLastNameMaxError] = useState(false);
   const [relationship, setRelationship] = useState('');
   const [relationshipError, setRelationshipError] = useState(false);
+  const [relationshipMaxError, setRelationshipMaxError] = useState(false);
   const [gender, setGender] = useState('Male');
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [deliveryAddressError, setDeliveryAddressError] = useState(false);
+  const [deliveryAddressMaxError, setDeliveryAddressMaxError] = useState(false);
   const [billingAddress, setBillingAddress] = useState('');
   const [billingAddressError, setBillingAddressError] = useState(false);
+  const [billingAddressMaxError, setBillingAddressMaxError] = useState(false);
   const [emailAddress, setEmailAddress] = useState('');
   const [emailAddressError, setEmailAddressError] = useState(false);
+  const [emailAddressMaxError, setEmailAddressMaxError] = useState(false);
   const [phoneNumbers, setPhoneNumbers] = useState([
     {
       id: 0,
@@ -84,24 +92,49 @@ const ContactsEdit = () => {
   };
 
   const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
     if (firstNameError) {
       setFirstNameError(false);
     }
+    if (event.target.value.length < 2) {
+      setFirstNameMinError(true);
+    } else {
+      setFirstNameMinError(false);
+    }
+    if (event.target.value.length > 50) {
+      setFirstNameMaxError(true);
+    } else {
+      setFirstNameMaxError(false);
+    }
+    setFirstName(event.target.value);
   };
 
   const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
     if (lastNameError) {
       setLastNameError(false);
     }
+    if (event.target.value.length < 2) {
+      setLastNameMinError(true);
+    } else {
+      setLastNameMinError(false);
+    }
+    if (event.target.value.length > 50) {
+      setLastNameMaxError(true);
+    } else {
+      setLastNameMaxError(false);
+    }
+    setLastName(event.target.value);
   };
 
   const handleRelationshipChange = (event) => {
-    setRelationship(event.target.value);
     if (relationshipError) {
       setRelationshipError(false);
     }
+    if (event.target.value.length > 50) {
+      setRelationshipMaxError(true);
+    } else {
+      setRelationshipMaxError(false);
+    }
+    setRelationship(event.target.value);
   };
 
   const handleGenderChange = (event) => {
@@ -109,20 +142,35 @@ const ContactsEdit = () => {
   };
 
   const handleDeliveryAddressChange = (event) => {
-    setDeliveryAddress(event.target.value);
     if (deliveryAddressError) {
       setDeliveryAddressError(false);
     }
+    if (event.target.value.length > 200) {
+      setDeliveryAddressMaxError(true);
+    } else {
+      setDeliveryAddressMaxError(false);
+    }
+    setDeliveryAddress(event.target.value);
   };
 
   const handleBillingAddressChange = (event) => {
-    setBillingAddress(event.target.value);
     if (billingAddressError) {
       setBillingAddressError(false);
     }
+    if (event.target.value.length > 200) {
+      setBillingAddressMaxError(true);
+    } else {
+      setBillingAddressMaxError(false);
+    }
+    setBillingAddress(event.target.value);
   };
 
   const handleEmailAddressChange = (event) => {
+    if (event.target.value.length > 100) {
+      setEmailAddressMaxError(true);
+    } else {
+      setEmailAddressMaxError(false);
+    }
     setEmailAddress(event.target.value);
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     setEmailAddressError(!regex.test(event.target.value));
@@ -183,7 +231,7 @@ const ContactsEdit = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const check = checkEmptyErrors();
+    const check = checkFieldErrors();
     if (!check) {
       try {
         const token = sessionStorage.getItem('token');
@@ -251,30 +299,48 @@ const ContactsEdit = () => {
     clearFields();
   };
 
-  const checkEmptyErrors = () => {
+  const checkFieldErrors = () => {
     let flag = false;
     if (!firstName) {
       setFirstNameError(true);
+      flag = true;
+    }
+    if (firstNameMinError || firstNameMaxError) {
       flag = true;
     }
     if (!lastName) {
       setLastNameError(true);
       flag = true;
     }
+    if (lastNameMinError || lastNameMaxError) {
+      flag = true;
+    }
     if (!relationship) {
       setRelationshipError(true);
+      flag = true;
+    }
+    if (relationshipMaxError) {
       flag = true;
     }
     if (!deliveryAddress) {
       setDeliveryAddressError(true);
       flag = true;
     }
+    if (deliveryAddressMaxError) {
+      flag = true;
+    }
     if (!billingAddress) {
       setBillingAddressError(true);
       flag = true;
     }
+    if (billingAddressMaxError) {
+      flag = true;
+    }
     if (!emailAddress) {
       setEmailAddressError(true);
+      flag = true;
+    }
+    if (emailAddressMaxError) {
       flag = true;
     }
     return flag;
@@ -399,10 +465,22 @@ const ContactsEdit = () => {
                       name='firstname'
                       label='First Name'
                       autoFocus
-                      error={firstNameError}
+                      error={
+                        firstNameError || firstNameMinError || firstNameMaxError
+                      }
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
+                  {firstNameMinError && (
+                    <FormHelperText error>
+                      First name must be at least 2 characters long
+                    </FormHelperText>
+                  )}
+                  {firstNameMaxError && (
+                    <FormHelperText error>
+                      First name must be less than 50 characters long
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Box
@@ -425,10 +503,22 @@ const ContactsEdit = () => {
                       id='lastname'
                       name='lastname'
                       label='Last Name'
-                      error={lastNameError}
+                      error={
+                        lastNameError || lastNameMinError || lastNameMaxError
+                      }
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
+                  {lastNameMinError && (
+                    <FormHelperText error>
+                      Last name must be at least 2 characters long
+                    </FormHelperText>
+                  )}
+                  {lastNameMaxError && (
+                    <FormHelperText error>
+                      Last name must be less than 50 characters long
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Box
@@ -451,10 +541,15 @@ const ContactsEdit = () => {
                       id='relationship'
                       name='relationship'
                       label='Relationship'
-                      error={relationshipError}
+                      error={relationshipError || relationshipMaxError}
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
+                  {relationshipMaxError && (
+                    <FormHelperText error>
+                      Relationship must be less than 50 characters long
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Box
@@ -519,10 +614,15 @@ const ContactsEdit = () => {
                       id='deliveryaddress'
                       name='deliveryaddress'
                       label='Delivery Address'
-                      error={deliveryAddressError}
+                      error={deliveryAddressError || deliveryAddressMaxError}
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
+                  {deliveryAddressMaxError && (
+                    <FormHelperText error>
+                      Delivery address must be less than 200 characters long
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Box
@@ -541,14 +641,20 @@ const ContactsEdit = () => {
                       onChange={handleBillingAddressChange}
                       color='accent'
                       required
+                      multiline
                       fullWidth
                       id='billingaddress'
                       name='billingaddress'
                       label='Billing Address'
-                      error={billingAddressError}
+                      error={billingAddressError || billingAddressMaxError}
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
+                  {billingAddressMaxError && (
+                    <FormHelperText error>
+                      Billing address must be less than 200 characters long
+                    </FormHelperText>
+                  )}
                 </Grid>
                 <Grid item xs={12}>
                   <Box
@@ -568,7 +674,7 @@ const ContactsEdit = () => {
                       name='emailaddress'
                       label='Email Address'
                       type='email'
-                      error={emailAddressError}
+                      error={emailAddressError || emailAddressMaxError}
                       InputProps={{ ...turnOffAutocomplete }}
                     />
                   </Box>
@@ -587,6 +693,25 @@ const ContactsEdit = () => {
                         />
                         <FormHelperText error>
                           Please enter a valid email address
+                        </FormHelperText>
+                      </>
+                    )}
+                  </Box>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center'
+                    }}>
+                    {emailAddressMaxError && (
+                      <>
+                        <EmailIcon
+                          color='accent'
+                          fontSize='large'
+                          sx={{ mr: 2, visibility: 'hidden' }}
+                        />
+                        <FormHelperText error>
+                          Email address must be less than 100 characters long
                         </FormHelperText>
                       </>
                     )}
